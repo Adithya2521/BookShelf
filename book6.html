@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Seven Husbands of Evelyn Hugo | Book Shelf</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        /* Header Styles */
+        .navbar {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Main Content Styles */
+        .book-detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .book-detail-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .book-cover-large {
+            flex: 0 0 300px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .book-cover-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .book-cover-large:hover img {
+            transform: scale(1.05);
+        }
+        
+        .book-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .book-meta {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .book-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .book-author {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .book-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .book-rating .stars {
+            color: #f39c12;
+            margin-right: 1rem;
+        }
+        
+        .book-rating .review-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .book-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .read-btn {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .read-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .buy-btn {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .buy-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .book-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .book-details div {
+            background-color: var(--light);
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .book-details strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 0.8rem;
+        }
+        
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+        
+        .detail-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+        
+        .summary-text {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .summary-text p {
+            margin-bottom: 1rem;
+        }
+        
+        .purchase-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .store-card {
+            flex: 1;
+            min-width: 200px;
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .store-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .store-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        
+        .store-info {
+            flex: 1;
+        }
+        
+        .store-name {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        
+        .store-price {
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .similar-books {
+            margin-top: 3rem;
+        }
+        
+        .similar-books h3 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .book-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .book-cover {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .book-card:hover .book-cover img {
+            transform: scale(1.05);
+        }
+        
+        .book-info {
+            padding: 1rem;
+        }
+        
+        .book-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .author {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .rating {
+            color: #f39c12;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .book-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .preview-btn, .read-btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .preview-btn {
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+        }
+        
+        .preview-btn:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .read-btn {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .read-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .reviews-section {
+            margin-top: 3rem;
+        }
+        
+        .review-card {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+        
+        .reviewer {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .reviewer-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .review-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            color: #f39c12;
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-text {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .add-review {
+            margin-top: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .add-review h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .rating-input {
+            margin-bottom: 1rem;
+        }
+        
+        .rating-input label {
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .rating-stars {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end
+        }
+        
+        .rating-stars input[type="radio"] {
+            display: none;
+        }
+        
+        .rating-stars label {
+            color: #ddd;
+            font-size: 1.5rem;
+            padding: 0 0.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .rating-stars input[type="radio"]:checked ~ label,
+        .rating-stars label:hover,
+        .rating-stars label:hover ~ label,
+        .rating-stars input[type="radio"]:checked ~ label {
+            color: #f39c12;
+        }
+         .rating-stars input[type="radio"]:checked + label {
+            color: #f39c12;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .review-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+        
+        .review-form button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .review-form button:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            width: 1rem;
+            text-align: center;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            
+            .book-cover-large {
+                flex: 0 0 100%;
+                height: auto;
+            }
+            
+            .book-title {
+                font-size: 1.5rem;
+            }
+            
+            .book-actions {
+                flex-direction: column;
+            }
+            
+            .book-details {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .purchase-options {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .book-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>Book Shelf</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="test10.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login_page.html">Login</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div class="book-detail-container">
+        <div class="book-detail-header">
+            <div class="book-cover-large">
+                <img src="the_seven_husbands_of_evelyn_hugo.jpeg" alt="The Seven Husbands of Evelyn Hugo">
+                <div class="book-badge">Bestseller</div>
+            </div>
+            <div class="book-meta">
+                <h1 class="book-title">The Seven Husbands of Evelyn Hugo</h1>
+                <div class="book-author">by Taylor Jenkins Reid</div>
+                <div class="book-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(4.6)</span>
+                    </div>
+                    <div class="review-count">2,847 reviews</div>
+                </div>
+                <div class="book-actions">
+                    <a href="https://amzn.in/d/hBrfjao" class="action-btn buy-btn">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </a>
+                </div>
+                <div class="book-details">
+                    <div><strong>Published:</strong> 2017</div>
+                    <div><strong>Pages:</strong> 400</div>
+                    <div><strong>Genre:</strong> Historical Fiction, Romance</div>
+                    <div><strong>Language:</strong> English</div>
+                    <div><strong>ISBN:</strong> 9781501161933</div>
+                    <div><strong>Publisher:</strong> Atria Books</div>
+                    <div><strong>Awards:</strong> Goodreads Choice Award (2017)</div>
+                    <div><strong>Format Available:</strong> PDF, EPUB, MOBI</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detail-section">
+            <h3>Summary</h3>
+            <div class="summary-text">
+                <p>Aging and reclusive Hollywood movie icon Evelyn Hugo is finally ready to tell the truth about her glamorous and scandalous life. But when she chooses unknown magazine reporter Monique Grant for the job, no one is more astounded than Monique herself. Why her? Why now?</p>
+                <p>Monique is not exactly on top of the world. Her husband has left her, and her career has stagnated. Regardless of why Evelyn has selected her to write her biography, Monique is determined to use this opportunity to jumpstart her career.</p>
+                <p>Summoned to Evelyn's luxurious apartment, Monique listens in fascination as the actress tells her story. From making her way to Los Angeles in the 1950s to her decision to leave show business in the '80s, and, of course, the seven husbands along the way, Evelyn unspools a tale of ruthless ambition, unexpected friendship, and a great forbidden love. Monique begins to feel a very real connection to the legendary star, but as Evelyn's story near its conclusion, it becomes clear that her life intersects with Monique's own in tragic and irreversible ways.</p>
+            </div>
+        </div>
+        
+        <div class="detail-section">
+            <h3>Where to Buy</h3>
+            <div class="purchase-options">
+                <div class="store-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="store-logo">
+                    <div class="store-info">
+                        <div class="store-name">Amazon</div>
+                        <div class="store-price">₹599</div>
+                    </div>
+                </div>
+                <div class="store-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Flipkart_logo.svg" alt="Flipkart" class="store-logo">
+                    <div class="store-info">
+                        <div class="store-name">Flipkart</div>
+                        <div class="store-price">₹629</div>
+                    </div>
+                </div>
+                <div class="store-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Crossword_logo.svg" alt="Crossword" class="store-logo">
+                    <div class="store-info">
+                        <div class="store-name">Crossword</div>
+                        <div class="store-price">₹675</div>
+                    </div>
+                </div>
+                <div class="store-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Book_Depository_Logo.svg" alt="Book Depository" class="store-logo">
+                    <div class="store-info">
+                        <div class="store-name">Book Depository</div>
+                        <div class="store-price">$15.99</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reviews-section">
+            <h3>Reader Reviews</h3>
+            <div id="reviews-container">
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">SJ</div>
+                        Sarah Johnson
+                    </div>
+                    <div class="review-date">April 12, 2023</div>
+                </div>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="review-text">
+                    This book completely captivated me from start to finish! Taylor Jenkins Reid has crafted such a compelling story about love, ambition, and sacrifice. Evelyn Hugo is such a complex and fascinating character - I couldn't put it down. The twist at the end left me speechless!
+                </div>
+            </div>
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">MR</div>
+                        Maya Rodriguez
+                    </div>
+                    <div class="review-date">February 28, 2023</div>
+                </div>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="review-text">
+                    What an emotional rollercoaster! The way Reid explores themes of sexuality, fame, and love in the context of Hollywood's golden age is brilliant. Evelyn's story is both heartbreaking and inspiring. This book will stay with me for a long time.
+                </div>
+            </div>
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer">
+                        <div class="reviewer-avatar">AL</div>
+                        Alex Lee
+                    </div>
+                    <div class="review-date">January 15, 2023</div>
+                </div>
+                <div class="review-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <div class="review-text">
+                    A beautifully written novel that kept me turning pages late into the night. The dual timeline between Evelyn's past and Monique's present works perfectly. While some plot points felt a bit predictable, the character development and emotional depth more than make up for it. Highly recommended!
+                </div>
+            </div>
+        </div>
+            
+            <div class="add-review">
+                <h3>Add Your Review</h3>
+                <form class="review-form" id="reviewForm">
+                    <div class="rating-input">
+                        <label>Your Rating:</label>
+                        <div class="rating-stars">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5" title="5 stars"><i class="far fa-star"></i></label>
+                            
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4" title="4 stars"><i class="far fa-star"></i></label>
+                            
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3" title="3 stars"><i class="far fa-star"></i></label>
+                            
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2" title="2 stars"><i class="far fa-star"></i></label>
+                            
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1" title="1 star"><i class="far fa-star"></i></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewer-name">Your Name:</label>
+                        <input type="text" id="reviewer-name" class="form-control" required>
+                    </div>
+                    <textarea id="review-text" placeholder="Share your thoughts about this book..." required></textarea>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="copyright">
+            <p>&copy; 2023 Book Shelf. All rights reserved.</p>
+            <p>Discover your next favorite book in our collection</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.rating-stars input[type="radio"]');
+            const starsContainer = document.querySelector('.rating-stars');
+            
+            // Highlight stars on hover
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function() {
+                    const rating = this.value;
+                    highlightStars(rating);
+                });
+            });
+            
+            // Reset stars when mouse leaves if no selection
+            starsContainer.addEventListener('mouseleave', function() {
+                const checkedStar = document.querySelector('.rating-stars input[type="radio"]:checked');
+                if (!checkedStar) {
+                    resetStars();
+                }
+            });
+            
+            // Keep stars highlighted when selected
+            stars.forEach(star => {
+                star.addEventListener('change', function() {
+                    const rating = this.value;
+                    highlightStars(rating);
+                });
+            });
+            
+            // Form submission
+            document.getElementById('reviewForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const rating = document.querySelector('input[name="rating"]:checked');
+                const reviewerName = document.getElementById('reviewer-name').value.trim();
+                const reviewText = document.getElementById('review-text').value.trim();
+                
+                if (!rating) {
+                    alert('Please select a rating');
+                    return;
+                }
+                
+                if (!reviewerName) {
+                    alert('Please enter your name');
+                    return;
+                }
+                
+                if (!reviewText) {
+                    alert('Please write your review');
+                    return;
+                }
+                
+                // Create new review card
+                const reviewCard = document.createElement('div');
+                reviewCard.className = 'review-card';
+                
+                // Get current date
+                const currentDate = new Date();
+                const formattedDate = currentDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                // Get initials for avatar
+                const nameParts = reviewerName.split(' ');
+                let initials = '';
+                if (nameParts.length > 0) {
+                    initials += nameParts[0].charAt(0).toUpperCase();
+                    if (nameParts.length > 1) {
+                        initials += nameParts[1].charAt(0).toUpperCase();
+                    }
+                }
+                
+                // Create stars HTML
+                let starsHTML = '';
+                const numStars = parseInt(rating.value);
+                for (let i = 0; i < 5; i++) {
+                    if (i < numStars) {
+                        starsHTML += '<i class="fas fa-star"></i>';
+                    } else {
+                        starsHTML += '<i class="far fa-star"></i>';
+                    }
+                }
+                
+                // Build review card HTML
+                reviewCard.innerHTML = `
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <div class="reviewer-avatar">${initials}</div>
+                            ${reviewerName}
+                        </div>
+                        <div class="review-date">${formattedDate}</div>
+                    </div>
+                    <div class="review-rating">
+                        ${starsHTML}
+                    </div>
+                    <div class="review-text">
+                        ${reviewText}
+                    </div>
+                `;
+                
+                // Add new review to the top of reviews container
+                const reviewsContainer = document.getElementById('reviews-container');
+                reviewsContainer.insertBefore(reviewCard, reviewsContainer.firstChild);
+                
+                // Update review count
+                const reviewCountElement = document.querySelector('.review-count');
+                const currentCount = parseInt(reviewCountElement.textContent.split(' ')[0].replace(',', ''));
+                reviewCountElement.textContent = (currentCount + 1).toLocaleString() + ' reviews';
+                
+                // Reset form
+                this.reset();
+                resetStars();
+                
+                // Show success message
+                alert('Thank you for your review!');
+            });
+            
+            function highlightStars(rating) {
+                const stars = document.querySelectorAll('.rating-stars label');
+                stars.forEach((star, index) => {
+                    if (index < 5 - rating) {
+                        star.innerHTML = '<i class="far fa-star"></i>';
+                    } else {
+                        star.innerHTML = '<i class="fas fa-star"></i>';
+                    }
+                });
+            }
+            
+            function resetStars() {
+                const stars = document.querySelectorAll('.rating-stars label');
+                stars.forEach(star => {
+                    star.innerHTML = '<i class="far fa-star"></i>';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

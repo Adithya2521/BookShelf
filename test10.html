@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Shelf - Your Online Book Haven</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .search-bar {
+            display: flex;
+            margin: 1.5rem 0;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background-color: #c0392b;
+        }
+        
+        .hero {
+            background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .categories {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.8rem;
+        }
+        
+        .category {
+            background-color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: var(--dark);
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .category:hover, .category.active {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+            border-color: var(--secondary);
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+        
+        .book-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .book-cover {
+            height: 350px;
+            overflow: hidden;
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .book-card:hover .book-cover img {
+            transform: scale(1.05);
+        }
+        
+        .book-info {
+            padding: 1.2rem;
+        }
+        
+        .book-title {
+            font-weight: bold;
+            margin-bottom: 0.6rem;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        
+        .book-author {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+        }
+        
+        .rating {
+            color: #f39c12;
+            margin-bottom: 0.5rem;
+        }
+        
+        .book-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .book-stats i {
+            margin-right: 4px;
+        }
+        
+        .read-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 4px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .book-card:hover .read-button {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+                margin-right: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+
+        /* Hidden class for filtering */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>Book Shelf</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="test10.html">Home</a></li>
+                <li><a href="contactus.html">Contact us</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="login_page.html">Login</a></li>
+            </ul>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for books, authors, or topics...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+    
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Discover a World of Knowledge</h1>
+            <p>Access thousands of books from around the world in our digital collection</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="categories">
+            <div class="category active" data-category="all"><i class="fas fa-book-open"></i> All Books</div>
+            <div class="category" data-category="fiction"><i class="fas fa-book"></i> Fiction</div>
+            <div class="category" data-category="nonfiction"><i class="fas fa-scroll"></i> Non-Fiction</div>
+            <div class="category" data-category="fantasy"><i class="fas fa-dragon"></i> Fantasy</div>
+            <div class="category" data-category="classics"><i class="fas fa-landmark"></i> Classics</div>
+            <div class="category" data-category="education"><i class="fas fa-graduation-cap"></i> Education</div>
+        </div>
+        
+        <h2 class="section-title">Our Collection</h2>
+        <div class="books-grid">
+            <!-- Fiction Books -->
+            <div class="book-card" data-categories="fiction" data-title="the midnight library">
+                <div class="book-cover">
+                    <img src="The_midnight_library.jpeg" alt="The Midnight Library">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">The Midnight Library</div>
+                    <div class="book-author">Matt Haig</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 304 pages</span>
+                        <span><i class="fas fa-download"></i> 12.4k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book1.html'">READ</button>
+            </div>
+            
+            <div class="book-card" data-categories="fiction" data-title="the song of achilles">
+                <div class="book-cover">
+                    <img src="the_song_of_achilles.jpeg" alt="The Song of Achilles">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">The Song of Achilles</div>
+                    <div class="book-author">Madeline Miller</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 416 pages</span>
+                        <span><i class="fas fa-download"></i> 15.3k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book4.html'">READ</button>
+            </div>
+            
+            <div class="book-card" data-categories="fiction" data-title="the seven husbands of evelyn hugo">
+                <div class="book-cover">
+                    <img src="the_seven_husbands_of_evelyn_hugo.jpeg" alt="The Seven Husbands of Evelyn Hugo">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">The Seven Husbands of Evelyn Hugo</div>
+                    <div class="book-author">Taylor Jenkins Reid</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 400 pages</span>
+                        <span><i class="fas fa-download"></i> 14.6k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book6.html'">READ</button>
+            </div>
+            
+            <!-- Non-Fiction Books -->
+            <div class="book-card" data-categories="nonfiction" data-title="atomic habits">
+                <div class="book-cover">
+                    <img src="Atomic_habits.jpeg" alt="Atomic Habits">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">Atomic Habits</div>
+                    <div class="book-author">James Clear</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 320 pages</span>
+                        <span><i class="fas fa-download"></i> 18.7k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book2.html'">READ</button>
+            </div>
+            
+            <div class="book-card" data-categories="nonfiction" data-title="the god of small things">
+                <div class="book-cover">
+                    <img src="The_God_of_Small_Things.jpeg" alt="The God of Small Things">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">The God of Small Things</div>
+                    <div class="book-author">Arundhati Roy</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 368 pages</span>
+                        <span><i class="fas fa-download"></i> 9.2k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book3.html'">READ</button>
+            </div>
+            
+            <!-- Fantasy Books -->
+            <div class="book-card" data-categories="fantasy" data-title="the invisible life of addie larue">
+                <div class="book-cover">
+                    <img src="the_invisible_life_of_addie_larue.jpeg" alt="The Invisible Life of Addie LaRue">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">The Invisible Life of Addie LaRue</div>
+                    <div class="book-author">V.E. Schwab</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 448 pages</span>
+                        <span><i class="fas fa-download"></i> 11.2k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book8.html'">READ</button>
+            </div>
+            
+            <div class="book-card" data-categories="fantasy" data-title="klara and the sun">
+                <div class="book-cover">
+                    <img src="klara_and_the_sun.jpeg" alt="Klara and the Sun">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">Klara and the Sun</div>
+                    <div class="book-author">Kazuo Ishiguro</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 320 pages</span>
+                        <span><i class="fas fa-download"></i> 7.8k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book5.html'">READ</button>
+            </div>
+            
+            <!-- Classics -->
+            <div class="book-card" data-categories="classics" data-title="the push">
+                <div class="book-cover">
+                    <img src="The_push.jpeg" alt="The Push">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">The Push</div>
+                    <div class="book-author">Ashley Audrain</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 320 pages</span>
+                        <span><i class="fas fa-download"></i> 6.9k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book7.html'">READ</button>
+            </div>
+            
+            <!-- Education Book -->
+            <div class="book-card" data-categories="education" data-title="HTML AND CSS: DESIGN AND BUILD WEBSITES">
+                <div class="book-cover">
+                    <img src="HTML_CSS.jpg" alt="HTML AND CSS: DESIGN AND BUILD WEBSITES">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">HTML AND CSS: DESIGN AND BUILD WEBSITES</div>
+                    <div class="book-author">Jon Duckett</div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="book-stats">
+                        <span><i class="fas fa-book"></i> 512 pages</span>
+                        <span><i class="fas fa-download"></i> 4.5k</span>
+                    </div>
+                </div>
+                <button class="read-button" onclick="window.location.href='book9.html'">READ</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Fiction</a></li>
+                    <li><a href="#">Non-Fiction</a></li>
+                    <li><a href="#">Fantasy</a></li>
+                    <li><a href="#">Classics</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="test10.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contactus.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="terms_of_service.html">Terms of Service</a></li>
+                    <li><a href="privacy_policy.html">Privacy Policy</a></li>
+                    <li><a href="copyright.html">Copyright</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <ul>
+                    <li><a href="https://facebook.com/MonishAdithya"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="https://twitter.com/naveen_096"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="https://instagram.com/naveen_nandha_096"><i class="fab fa-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Book Shelf. All rights reserved.</p>
+            <p>Discover your next favorite book in our collection</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category filtering
+            const categories = document.querySelectorAll('.category');
+            const bookCards = document.querySelectorAll('.book-card');
+            
+            categories.forEach(category => {
+                category.addEventListener('click', function() {
+                    // Update active category
+                    categories.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const categoryToShow = this.getAttribute('data-category');
+                    
+                    // Show/hide books based on category
+                    bookCards.forEach(card => {
+                        if (categoryToShow === 'all') {
+                            card.classList.remove('hidden');
+                        } else {
+                            const cardCategories = card.getAttribute('data-categories').split(' '); 
+                            if (cardCategories.includes(categoryToShow)) {
+                                card.classList.remove('hidden');
+                            } else {
+                                card.classList.add('hidden');
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                bookCards.forEach(card => {
+                    const title = card.getAttribute('data-title');
+                    if (title.includes(searchTerm)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Footer link functionality
+            const footerLinksMap = {
+                'Fiction': 'fiction',
+                'Non-Fiction': 'nonfiction',
+                'Fantasy': 'fantasy',
+                'Classics': 'classics',
+                'Education': 'education'
+            };
+
+            document.querySelectorAll('.footer-column ul li a').forEach(link => {
+                const linkText = link.textContent.trim();
+                if (footerLinksMap[linkText]) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const categoryValue = footerLinksMap[linkText];
+                        const targetCategory = document.querySelector(`.category[data-category="${categoryValue}"]`);
+                        if (targetCategory) {
+                            targetCategory.click();
+                            window.scrollTo({
+                                top: targetCategory.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

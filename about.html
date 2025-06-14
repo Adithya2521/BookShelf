@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - DigitalLib</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-links li {
+      margin-left: 2rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1350&q=80') no-repeat center;
+      background-size: cover;
+      height: 350px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: white;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      top: 0;
+      left: 0;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: var(--secondary);
+    }
+
+    .about-content {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-top: 1rem;
+    }
+
+    .highlight {
+      color: var(--secondary);
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--secondary);
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-column a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #444;
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <i class="fas fa-book-open"></i>
+        <span>Book Shelf</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="test10.html">Home</a></li>
+      
+      </ul>
+    </div>
+  </header>
+
+  <div class="hero">
+    <h1>About Book Shelf</h1>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title">Who We Are</h2>
+    <p class="about-content">
+      <span class="highlight">Book Shelf</span> is your online gateway to a world of books. Our mission is to empower readers across the globe by providing a free, accessible, and beautifully organized library of bestselling, classic, and niche titles. Whether you’re a student, a lifelong learner, or a curious mind, Book Shelf is here to serve your reading needs.
+    </p>
+
+    <h2 class="section-title" style="margin-top:2rem;">Our Vision</h2>
+    <p class="about-content">
+      We believe in a future where everyone has access to knowledge and stories that inspire. With intuitive features, curated collections, and a user-friendly interface, Book Shelf bridges the gap between readers and the books they love.
+    </p>
+
+    <h2 class="section-title" style="margin-top:2rem;">Join Our Journey</h2>
+    <p class="about-content">
+      From fiction to philosophy, science to self-help, we are constantly growing our digital shelves. Join us in redefining the future of reading—anywhere, anytime, on any device.
+    </p>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Fiction</a></li>
+                    <li><a href="#">Non-Fiction</a></li>
+                    <li><a href="#">Fantasy</a></li>
+                    <li><a href="#">Classics</a></li>
+                </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="test10.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="terms_of_service.html">Terms of Service</a></li>
+          <li><a href="privacy_policy.html">Privacy Policy</a></li>
+          <li><a href="copyright.html">Copyright</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Connect With Us</h3>
+        <ul>
+          <li><a href="https://facebook.com/MonishAdithya"><i class="fab fa-facebook"></i> Facebook</a></li>
+          <li><a href="https://twitter.com/naveen_096"><i class="fab fa-twitter"></i> Twitter</a></li>
+          <li><a href="https://instagram.com/naveen_nandha_096"><i class="fab fa-instagram"></i> Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+        <div class="copyright">
+            <p>&copy; 2023 Book Shelf. All rights reserved.</p>
+            <p>Discover your next favorite book in our collection</p>
+        </div>
+  </footer>
+
+</body>
+</html>
